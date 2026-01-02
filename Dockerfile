@@ -19,7 +19,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update -y && \
     apt-get install -y --no-install-recommends \
         autoconf automake libtool-bin make texinfo help2man \
-        cmake ninja \
+        cmake ninja-build \
         build-essential \
         git \
         libtool \
