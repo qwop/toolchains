@@ -22,18 +22,18 @@ jobs:
     strategy:
       matrix:
         triple:
-          - 'aarch64-rpi3-linux-gnu'
-          - 'armv6-rpi-linux-gnueabihf'
-          - 'armv7-neon-linux-gnueabihf'
-          - 'armv8-rpi3-linux-gnueabihf'
+          #- 'aarch64-rpi3-linux-gnu'
+          #- 'armv6-rpi-linux-gnueabihf'
+          #- 'armv7-neon-linux-gnueabihf'
+          #- 'armv8-rpi3-linux-gnueabihf'
           - 'x86_64-centos7-linux-gnu'
-          - 'x86_64-bionic-linux-gnu'
-          - 'x86_64-focal-linux-gnu'
+          #- 'x86_64-bionic-linux-gnu'
+          #- 'x86_64-focal-linux-gnu'
         gcc-version:
           - '15'
-          - '14'
-          - '13'
-          - '12'
+          #- '14'
+          #- '13'
+          #- '12'
 
     steps:
       - name: Checkout repository
