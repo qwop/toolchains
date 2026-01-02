@@ -48,10 +48,10 @@ RUN wget https://ftp.gnu.org/gnu/autoconf/autoconf-2.72.tar.gz -O- | tar xz && \
 ENV PATH=/home/develop/.local/bin:${PATH}
 
 # Build crosstool-ng
+# git checkout f390dba6c73845389a3217169402d95a837fcee8 && \
 RUN git clone -b master --single-branch \
         https://github.com/crosstool-ng/crosstool-ng.git && \
     cd crosstool-ng && \
-    git checkout f390dba6c73845389a3217169402d95a837fcee8 && \
     git show --summary && \
     ./bootstrap && \
     mkdir build && cd build && \
