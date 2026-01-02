@@ -32,6 +32,14 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
         perl libthread-queue-perl \
         ca-certificates wget git \
         bzip2 xz-utils unzip rsync && \
+    wget https://github.com/Kitware/CMake/releases/download/v3.28.3/cmake-3.28.3.tar.gz \
+    && tar -xzf cmake-3.28.3.tar.gz \
+    && cd cmake-3.28.3 \
+    && ./bootstrap --prefix=/usr/local \
+    && make -j$(nproc) \
+    && make install \
+    && cd .. \
+    && rm -rf cmake-3.28.3 \
     apt-get clean autoclean && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
