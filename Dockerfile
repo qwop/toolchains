@@ -19,6 +19,12 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update -y && \
     apt-get install -y --no-install-recommends \
         autoconf automake libtool-bin make texinfo help2man \
+        cmake \
+        build-essential \
+        git \
+        libtool \
+        pkg-config \
+        zlib1g-dev \
         sudo file gawk patch \
         python3 \
         g++ bison flex gperf \
