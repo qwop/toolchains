@@ -102,9 +102,8 @@ RUN . ./${HOST_TRIPLE}.env && \
 RUN chmod +w /home/develop/x-tools/${HOST_TRIPLE}
 COPY --chown=develop:develop --from=config /config-${HOST_TRIPLE}/* /home/develop/x-tools
 RUN chmod -w /home/develop/x-tools/${HOST_TRIPLE} && \
-          mkdir -p /home/develop/thetools && \
-          cd /home/develop/thetools && \
-          git clone --depth 1 https://github.com/rui314/mold.git && \
+          cd /home/develop && \
+          git clone https://github.com/rui314/mold.git && \
           cd mold && \
           cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER="/home/develop/x-tools/${HOST_TRIPLE}/bin/${HOST_TRIPLE}-gcc" -DCMAKE_CXX_COMPILER="/home/develop/x-tools/${HOST_TRIPLE}/bin/${HOST_TRIPLE}-g++" \       -DCMAKE_INSTALL_PREFIX="/home/develop/x-tools/${HOST_TRIPLE}" \
           -B build && \
