@@ -33,6 +33,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
         ca-certificates wget git \
         bzip2 xz-utils unzip rsync && \
     wget https://github.com/Kitware/CMake/releases/download/v3.28.3/cmake-3.28.3.tar.gz \
+    && gcc --version \
     && tar -xzf cmake-3.28.3.tar.gz \
     && cd cmake-3.28.3 \
     && ./bootstrap --prefix=/usr/local \
@@ -105,7 +106,9 @@ RUN chmod -w /home/develop/x-tools/${HOST_TRIPLE} && \
           cd /home/develop && \
           git clone https://github.com/rui314/mold.git && \
           cd mold && \
-          cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER="/home/develop/x-tools/${HOST_TRIPLE}/bin/${HOST_TRIPLE}-gcc" -DCMAKE_CXX_COMPILER="/home/develop/x-tools/${HOST_TRIPLE}/bin/${HOST_TRIPLE}-g++" \       -DCMAKE_INSTALL_PREFIX="/home/develop/x-tools/${HOST_TRIPLE}" \
+          /home/develop/x-tools/${HOST_TRIPLE}/bin/${HOST_TRIPLE}-gcc --version && \
+          cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER="/home/develop/x-tools/${HOST_TRIPLE}/bin/${HOST_TRIPLE}-gcc" -DCMAKE_CXX_COMPILER="/home/develop/x-tools/${HOST_TRIPLE}/bin/${HOST_TRIPLE}-g++" \
+          -DCMAKE_INSTALL_PREFIX="/home/develop/x-tools/${HOST_TRIPLE}" \
           -B build && \
           cmake --build build -j$(nproc) && \
           cmake --install build || ( cd build && make install ) || true 
