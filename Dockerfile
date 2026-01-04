@@ -12,7 +12,7 @@ RUN python3 gen-conan-profile.py ${HOST_TRIPLE} ${GCC_VERSION} /config-${HOST_TR
 
 # Crosstool-NG -----------------------------------------------------------------
 
-FROM --platform=$BUILDPLATFORM ubuntu:bionic AS ct-ng
+FROM --platform=$BUILDPLATFORM ubuntu:plucky AS ct-ng
 
 # Install dependencies to build crosstool-ng and the toolchain
 RUN export DEBIAN_FRONTEND=noninteractive && \
