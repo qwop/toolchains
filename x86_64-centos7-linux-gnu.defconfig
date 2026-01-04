@@ -17,8 +17,12 @@ CT_BINUTILS_GOLD_THREADS=y
 CT_BINUTILS_LD_WRAPPER=y
 CT_BINUTILS_PLUGINS=y
 CT_GLIBC_V_2_17=y
-CT_GLIBC_EXTRA_CFLAGS="-Wno-implicit-int"
-CT_CC_GCC_EXTRA_CONFIG_ARRAY="--enable-multiarch --enable-libstdcxx-backtrace=yes --with-pic"
+CT_GLIBC_EXTRA_CFLAGS="-fPIC -DPIC -no-pie -Wno-implicit-int"
+CT_GLIBC_EXTRA_CONFIG_ARRAY="--with-pic"
+
+CT_CC_GCC_EXTRA_CONFIG_ARRAY="--enable-host-shared --enable-default-ssp --with-build-config=bootstrap-lto-lean --enable-link-serialization=2 --enable-multiarch --enable-libstdcxx-backtrace=yes --with-pic --with-default-libstdcxx-abi=gcc4-compatible"
+CT_CC_GCC_CORE_EXTRA_CONFIG_ARRAY="--enable-host-shared --enable-default-ssp"
+
 # CT_CC_GCC_ENABLE_DEFAULT_PIE is not set
 CT_CC_GCC_LIBGOMP=y
 CT_CC_GCC_LIBQUADMATH=y
@@ -30,6 +34,24 @@ CT_DEBUG_GDB=y
 # CT_GDB_CROSS is not set
 CT_GDB_NATIVE_BUILD_IPA_LIB=y
 CT_GDB_NATIVE_STATIC_LIBSTDCXX=y
-CT_GMP_EXTRA_CFLAGS="-std=gnu11"
-CT_NCURSES_EXTRA_CFLAGS="-std=gnu11"
+CT_GMP_EXTRA_CFLAGS="-std=gnu17"
+CT_NCURSES_EXTRA_CFLAGS="-std=gnu17"
+#
+# crosstool-NG behavior
+#
+CT_OBSOLETE=y
+CT_EXPERIMENTAL=y
+CT_ALLOW_BUILD_AS_ROOT=y
+CT_ALLOW_BUILD_AS_ROOT_SURE=y
+#
+# Build behavior
+#
+CT_PARALLEL_JOBS=0
+CT_LOAD=""
+CT_USE_PIPES=y
+CT_EXTRA_CFLAGS_FOR_BUILD="-fPIC -DPIC"
+CT_EXTRA_CXXFLAGS_FOR_BUILD="-fPIC -DPIC"
+CT_EXTRA_LDFLAGS_FOR_BUILD=""
+CT_EXTRA_CFLAGS_FOR_HOST="-fPIC -DPIC"
+CT_EXTRA_LDFLAGS_FOR_HOST=""
 
