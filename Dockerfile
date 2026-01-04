@@ -46,14 +46,14 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
     rm -rf /var/lib/apt/lists/*
 
 # Add a user called `develop` and add them to the sudo group
-RUN useradd -m develop && echo "develop:develop" | chpasswd && \
-    usermod -aG sudo develop
+# RUN useradd -m develop && echo "develop:develop" | chpasswd && \
+#     usermod -aG sudo develop
 
-USER develop
-WORKDIR /home/develop
+# USER develop
+# WORKDIR /home/develop
 
 # Install autoconf
-RUN wget https://ftp.gnu.org/gnu/autoconf/autoconf-2.72.tar.gz -O- | tar xz && \
+RUN mkdir /home/develop && wget https://ftp.gnu.org/gnu/autoconf/autoconf-2.72.tar.gz -O- | tar xz && \
     cd autoconf-2.72 && \
     ./configure --prefix=/home/develop/.local && \
     make -j$(nproc) && \
@@ -92,8 +92,10 @@ ARG GCC_VERSION
 ARG PKG_VERSION
 
 # Build the toolchain
-COPY --chown=develop:develop ${HOST_TRIPLE}.defconfig .
-COPY --chown=develop:develop ${HOST_TRIPLE}.env .
+# COPY --chown=develop:develop ${HOST_TRIPLE}.defconfig .
+# COPY --chown=develop:develop ${HOST_TRIPLE}.env .
+COPY ${HOST_TRIPLE}.defconfig .
+COPY ${HOST_TRIPLE}.env .
 RUN [ -n "${GCC_VERSION}" ] && { echo "CT_GCC_V_${GCC_VERSION}=y" >> ${HOST_TRIPLE}.defconfig; }
 RUN [ -n "${PKG_VERSION}" ] && { echo "CT_TOOLCHAIN_PKGVERSION=\"tttapa/toolchains@${PKG_VERSION}\"" >> ${HOST_TRIPLE}.defconfig; }
 RUN cp ${HOST_TRIPLE}.defconfig defconfig && ct-ng defconfig
@@ -101,7 +103,8 @@ RUN . ./${HOST_TRIPLE}.env && \
     ct-ng build || { cat build.log && false; } && rm -rf .build
 
 RUN chmod +w /home/develop/x-tools/${HOST_TRIPLE}
-COPY --chown=develop:develop --from=config /config-${HOST_TRIPLE}/* /home/develop/x-tools
+# COPY --chown=develop:develop --from=config /config-${HOST_TRIPLE}/* /home/develop/x-tools
+COPY --from=config /config-${HOST_TRIPLE}/* /home/develop/x-tools
 RUN chmod -w /home/develop/x-tools/${HOST_TRIPLE} && \
           cd /home/develop && \
           git clone https://github.com/rui314/mold.git && \
@@ -125,14 +128,15 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
         ca-certificates wget git sudo file && \
     apt-get clean autoclean && \
     apt-get autoremove -y && \
+    mkdir -p /home/develop && \
     rm -rf /var/lib/apt/lists/*
 
 # Add a user called `develop` and add them to the sudo group
-RUN useradd -m develop && echo "develop:develop" | chpasswd && \
-    usermod -aG sudo develop
+# RUN useradd -m develop && echo "develop:develop" | chpasswd && \
+#     usermod -aG sudo develop
 
-USER develop
-WORKDIR /home/develop
+# USER develop
+# WORKDIR /home/develop
 
 # Build container --------------------------------------------------------------
 
@@ -144,5 +148,6 @@ ENV TOOLCHAIN_PATH=/home/develop/opt/x-tools/${HOST_TRIPLE}
 ENV PATH=${TOOLCHAIN_PATH}/bin:${PATH}
 
 # Copy the toolchain
-COPY --chown=develop:develop --from=gcc-build /home/develop/x-tools /home/develop/opt/x-tools
+# COPY --chown=develop:develop --from=gcc-build /home/develop/x-tools /home/develop/opt/x-tools
+COPY --from=gcc-build /home/develop/x-tools /home/develop/opt/x-tools
 RUN ${HOST_TRIPLE}-g++ --version
