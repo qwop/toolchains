@@ -5,7 +5,7 @@ CT_LOCAL_PATCH_DIR="${CT_TOP_DIR}/patches"
 # CT_LOG_PROGRESS_BAR is not set
 CT_ARCH_X86=y
 CT_ARCH_64=y
-CT_TOOLCHAIN_PKGVERSION="tttapa/toolchains"
+CT_TOOLCHAIN_PKGVERSION="qwop/toolchains"
 CT_TOOLCHAIN_BUGURL="https://github.com/tttapa/toolchains"
 CT_TARGET_VENDOR="centos7"
 CT_KERNEL_LINUX=y
@@ -19,10 +19,8 @@ CT_BINUTILS_PLUGINS=y
 CT_GLIBC_V_2_17=y
 CT_GLIBC_EXTRA_CFLAGS="-fPIC -DPIC -no-pie -Wno-implicit-int"
 CT_GLIBC_EXTRA_CONFIG_ARRAY="--with-pic"
-
 CT_CC_GCC_EXTRA_CONFIG_ARRAY="--enable-host-shared --enable-default-ssp --with-build-config=bootstrap-lto-lean --enable-link-serialization=2 --enable-multiarch --enable-libstdcxx-backtrace=yes --with-pic --with-default-libstdcxx-abi=gcc4-compatible"
 CT_CC_GCC_CORE_EXTRA_CONFIG_ARRAY="--enable-host-shared --enable-default-ssp"
-
 # CT_CC_GCC_ENABLE_DEFAULT_PIE is not set
 CT_CC_GCC_LIBGOMP=y
 CT_CC_GCC_LIBQUADMATH=y
