@@ -30,6 +30,7 @@ jobs:
           - 'x86_64-bionic-linux-gnu'
           - 'x86_64-focal-linux-gnu'
         gcc-version:
+          - '16'
           - '15'
           - '14'
           - '13'
@@ -73,10 +74,10 @@ jobs:
             type=ref,event=branch
             type=ref,event=tag
             type=ref,event=pr
-            type=ref,event=branch,prefix=${{ matrix.triple }}-,enable=${{ matrix.gcc-version == '14' }}
-            type=ref,event=tag,prefix=${{ matrix.triple }}-,enable=${{ matrix.gcc-version == '14' }}
-            type=ref,event=pr,prefix=${{ matrix.triple }}-,enable=${{ matrix.gcc-version == '14' }}
-            type=raw,value=${{ matrix.triple }},prefix=,enable=${{ matrix.gcc-version == '14' }}
+            type=ref,event=branch,prefix=${{ matrix.triple }}-,enable=${{ matrix.gcc-version == '16' }}
+            type=ref,event=tag,prefix=${{ matrix.triple }}-,enable=${{ matrix.gcc-version == '16' }}
+            type=ref,event=pr,prefix=${{ matrix.triple }}-,enable=${{ matrix.gcc-version == '16' }}
+            type=raw,value=${{ matrix.triple }},prefix=,enable=${{ matrix.gcc-version == '16' }}
             type=raw,value=${{ matrix.triple }}-gcc${{ matrix.gcc-version }},prefix=
 
       # Build and load Docker image with Buildx
