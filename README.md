@@ -7,10 +7,10 @@ distributions.
 - **Architectures**: x86-64, ARM64, ARMv8, ARMv7, ARMv6
 - **Glibc**: 2.27 and later (2.17 for `x86_64-centos7-linux-gnu`, 2.31 for `x86_64-focal-linux-gnu`)
 - **Linux**: 4.15 and later (3.10 for `x86_64-centos7-linux-gnu`, 5.4 for `x86_64-focal-linux-gnu`)
-- **Distributions**: Debian 10 Buster, Ubuntu 18.04 Bionic, Rocky 8 and later
+- **Distributions**: Debian 10 Buster, Ubuntu 18.04 Bionic, Rocky 8 and later (CentOS 7 and later for `x86_64-centos7-linux-gnu`, Ubuntu 22.04 Focal and later for `x86_64-focal-linux-gnu`)
 
-The toolchains themselves can be used on any x86-64 system running Debian 10
-Buster, Ubuntu 18.04 Bionic, Rocky 8 and later.
+The toolchains themselves can be used on any x86-64 system running Debian 11
+Bullseye, Ubuntu 22.04 Focal, Rocky 9 and later.
 
 ## Purpose
 

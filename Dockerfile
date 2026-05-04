@@ -12,7 +12,7 @@ RUN python3 gen-conan-profile.py ${HOST_TRIPLE} ${GCC_VERSION} /config-${HOST_TR
 
 # Crosstool-NG -----------------------------------------------------------------
 
-FROM --platform=$BUILDPLATFORM ubuntu:bionic AS ct-ng
+FROM --platform=$BUILDPLATFORM debian:bullseye AS ct-ng
 
 # Install dependencies to build crosstool-ng and the toolchain
 RUN export DEBIAN_FRONTEND=noninteractive && \
@@ -93,7 +93,7 @@ RUN chmod -w /home/develop/x-tools/${HOST_TRIPLE}
 
 # Build container (base) -------------------------------------------------------
 
-FROM ubuntu:noble AS gcc-dev-base
+FROM debian:trixie AS gcc-dev-base
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update -y && \
