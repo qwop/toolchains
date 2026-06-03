@@ -66,8 +66,8 @@ RUN git clone -b master --single-branch \
 # See https://packages.debian.org/sid/binutils for an up-to-date download URL
 RUN wget https://ftp.debian.org/debian/pool/main/b/binutils/binutils_2.46-3.debian.tar.xz -O- | \
     tar xJ debian/patches/129_multiarch_libpath.patch && \
-    mkdir -p patches/binutils/2.46 && \
-    mv debian/patches/129_multiarch_libpath.patch patches/binutils/2.46 && \
+    mkdir -p patches/binutils/2.46.0 && \
+    mv debian/patches/129_multiarch_libpath.patch patches/binutils/2.46.0 && \
     rm -rf debian
 
 # Toolchain --------------------------------------------------------------------
