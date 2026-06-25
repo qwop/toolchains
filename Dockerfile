@@ -12,7 +12,7 @@ RUN python3 gen-conan-profile.py ${HOST_TRIPLE} ${GCC_VERSION} /config-${HOST_TR
 
 # Crosstool-NG -----------------------------------------------------------------
 
-FROM --platform=$BUILDPLATFORM ubuntu:plucky AS ct-ng
+FROM --platform=$BUILDPLATFORM debian:bullseye AS ct-ng
 
 # Install dependencies to build crosstool-ng and the toolchain
 RUN export DEBIAN_FRONTEND=noninteractive && \
@@ -67,6 +67,8 @@ ENV PATH=/home/develop/.local/bin:${PATH}
 RUN git clone -b master --single-branch \
         https://github.com/crosstool-ng/crosstool-ng.git && \
     cd crosstool-ng && \
+    git fetch origin refs/pull/2502/head:pr/2502 && \
+    git checkout 43780e61fc95677d2fa7d042f32f889da064c6a3 && \
     git show --summary && \
     ./bootstrap && \
     mkdir build && cd build && \
@@ -77,10 +79,11 @@ RUN git clone -b master --single-branch \
 
 # Patches
 # https://www.raspberrypi.org/forums/viewtopic.php?f=91&t=280707&p=1700861#p1700861
-RUN wget https://mirrors.tuxedocomputers.com/debian/pool/main/b/binutils/binutils_2.45-3.debian.tar.xz -O- | \
+# See https://packages.debian.org/sid/binutils for an up-to-date download URL
+RUN wget https://ftp.debian.org/debian/pool/main/b/binutils/binutils_2.46-3.debian.tar.xz -O- | \
     tar xJ debian/patches/129_multiarch_libpath.patch && \
-    mkdir -p patches/binutils/2.45 && \
-    mv debian/patches/129_multiarch_libpath.patch patches/binutils/2.45 && \
+    mkdir -p patches/binutils/2.46.0 && \
+    mv debian/patches/129_multiarch_libpath.patch patches/binutils/2.46.0 && \
     rm -rf debian
 
 # Toolchain --------------------------------------------------------------------
@@ -116,7 +119,7 @@ RUN chmod -w /home/develop/x-tools/${HOST_TRIPLE} && \
 
 # Build container (base) -------------------------------------------------------
 
-FROM ubuntu:noble AS gcc-dev-base
+FROM debian:trixie AS gcc-dev-base
 
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update -y && \
